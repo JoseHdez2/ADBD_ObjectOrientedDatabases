@@ -3,6 +3,7 @@ package main;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -16,17 +17,24 @@ public class Main {
     static ResultSet resultados;
     static int filasResultados;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         intentarConexion();
         
-        //String cod=codigo_e.getText(); // <--- pinta cod, para ver que valor te llega
-
-        //int numero=Integer.parseInt(cod); // <-- cod llega vacio ""
-
-        consultaDePrueba();
+        Statement statement = connection.createStatement();
         
-        mostrarResultados();
+        ResultSet resultSet = statement.executeQuery("SELECT * from mi_tabla");
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        int columnsNumber = rsmd.getColumnCount();
+        while (resultSet.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) System.out.print(",  ");
+                String columnValue = resultSet.getString(i);
+                // System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                System.out.print(columnValue);
+            }
+            System.out.println("");
+        }
     }
     
     static public void intentarConexion(){
@@ -38,40 +46,5 @@ public class Main {
         } catch (SQLException e) {
             throw new IllegalStateException("Cannot connect the database!", e);
         }
-    }
-    
-    static public void consultaDePrueba(){
-        Statement stmt;
-        ResultSet rs = null, rsn = null;
-        try {
-            stmt = connection.createStatement();
-
-            rs = stmt.executeQuery("SELECT * FROM mi_tabla");
-            resultados = rs;
-            
-            rsn = stmt.executeQuery("SELECT COUNT(*) FROM mi_tabla");
-            rsn.first(); // Movemos el cursor a la primera fila.
-            filasResultados = rsn.getInt(1);
-            
-            // System.out.println(filasResultados);
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-        }
-    }
-    
-    static public void mostrarResultados(){
-        try {
-            resultados.first(); // Movemos el cursor a la primera fila.
-            
-            
-        for (int i = 0; i < filasResultados; i++){
-            System.out.println(resultados.getString(i));
-        }
-        
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 }
