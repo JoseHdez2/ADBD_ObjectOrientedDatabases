@@ -4,13 +4,12 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> 
         <class>main2.Usuario</class> 
         <properties> 
-        	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.driver">
             <property name="eclipselink.target-database" value="DERBY"> 
             <property name="eclipselink.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"> 
             <property name="eclipselink.jdbc.url" value="jdbc:derby://localhost:1527/introduccionJPA_DB;create=true"> 
             <property name="eclipselink.jdbc.user" value="APP"> 
             <property name="eclipselink.jdbc.password" value="APP"> 
             <property name="eclipselink.ddl-generation" value="create-tables"> 
-        </property></property></property></property></property></property></property></properties> 
+        </property></property></property></property></property></property></properties> 
     </persistence-unit> 
 </persistence> 

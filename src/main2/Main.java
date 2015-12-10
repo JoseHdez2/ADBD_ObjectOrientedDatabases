@@ -12,7 +12,7 @@ public class Main {
             Persistence.createEntityManagerFactory("introduccionJPA"); 
         EntityManager em = emf.createEntityManager(); 
         EntityTransaction tx = em.getTransaction(); 
-         
+        
         Pelicula pelicula = new Pelicula(); 
         pelicula.setTitulo("Pelicula uno"); 
         pelicula.setDuracion(142); 
